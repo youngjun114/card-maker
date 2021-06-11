@@ -33,4 +33,5 @@
 
 .button:hover {
   background-color: makerGreenLight;
+  color: white;
 }
