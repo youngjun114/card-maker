@@ -1,0 +1,36 @@
+@value makerGreen, makerGreenLight, makerWhite from '../../common/colors.css';
+
+.login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  background-color: makerWhite;
+  width: 30em;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0.5rem;
+}
+
+.item {
+  margin-bottom: 0.5em;
+}
+
+.button {
+  width: 100%;
+  height: 2.5em;
+  font-size: 1.2rem;
+  background-color: transparent;
+  cursor: pointer;
+  border: 0.2rem solid makerGreen;
+  outline: 0;
+  border-radius: 1.2rem;
+}
+
+.button:hover {
+  background-color: makerGreenLight;
+}
