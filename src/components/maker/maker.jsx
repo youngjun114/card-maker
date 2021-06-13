@@ -7,8 +7,8 @@ import Preview from '../preview/preview';
 import styles from './maker.module.css';
 
 const Maker = ({ authService }) => {
-  const [cards, setCards] = useState([
-    {
+  const [cards, setCards] = useState({
+    1: {
       id: '1',
       name: 'Youngjun Woo',
       company: 'Google',
@@ -19,7 +19,7 @@ const Maker = ({ authService }) => {
       fileURL: null,
       theme: 'light',
     },
-    {
+    2: {
       id: '2',
       name: 'Youngjun Woo',
       company: 'AIRBNB',
@@ -30,7 +30,7 @@ const Maker = ({ authService }) => {
       fileURL: null,
       theme: 'dark',
     },
-    {
+    3: {
       id: '3',
       name: 'Youngjun Woo',
       company: 'Microsoft',
@@ -41,15 +41,27 @@ const Maker = ({ authService }) => {
       fileURL: null,
       theme: 'colorful',
     },
-  ]);
+  });
+
   const history = useHistory();
   const onLogout = () => {
     authService.logout();
   };
 
-  const addCard = (card) => {
-    const newCards = [...cards, card];
-    setCards(newCards);
+  const removeCard = (card) => {
+    setCards((cards) => {
+      const updated = { ...cards };
+      delete updated[card.id];
+      return updated;
+    });
+  };
+
+  const createOrUpdateCard = (card) => {
+    setCards((cards) => {
+      const updated = { ...cards };
+      updated[card.id] = card;
+      return updated;
+    });
   };
 
   // Auth logout if user not found
@@ -65,7 +77,12 @@ const Maker = ({ authService }) => {
     <section className={styles.maker}>
       <Header onLogout={onLogout} />
       <div className={styles.container}>
-        <Editor cards={cards} addCard={addCard} />
+        <Editor
+          cards={cards}
+          addCard={createOrUpdateCard}
+          updateCard={createOrUpdateCard}
+          removeCard={removeCard}
+        />
         <Preview cards={cards} />
       </div>
       <Footer />
