@@ -2,6 +2,7 @@
 
 .preview {
   flex-basis: 50%;
+  overflow-y: scroll;
   background-color: #8eb2b4;
 }
 

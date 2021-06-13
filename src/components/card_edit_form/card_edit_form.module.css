@@ -35,6 +35,7 @@
 
 .form > textarea {
   flex-basis: 100%;
+  font-family: 'Roboto', sans-serif;
 }
 
 .fileInput {

@@ -6,44 +6,12 @@ import Editor from '../editor/editor';
 import Preview from '../preview/preview';
 import styles from './maker.module.css';
 
-const Maker = ({ FileInput, authService }) => {
-  const [cards, setCards] = useState({
-    1: {
-      id: '1',
-      name: 'Youngjun Woo',
-      company: 'Google',
-      title: 'Software Engineer',
-      email: 'youngjun_92@hotmail.com',
-      message: 'Hello World',
-      fileName: 'woo',
-      fileURL: null,
-      theme: 'light',
-    },
-    2: {
-      id: '2',
-      name: 'Youngjun Woo',
-      company: 'AIRBNB',
-      title: 'Software Engineer',
-      email: 'youngjun_92@hotmail.com',
-      message: 'Hello World',
-      fileName: 'woo',
-      fileURL: null,
-      theme: 'dark',
-    },
-    3: {
-      id: '3',
-      name: 'Youngjun Woo',
-      company: 'Microsoft',
-      title: 'Software Engineer',
-      email: 'youngjun_92@hotmail.com',
-      message: 'Hello World',
-      fileName: 'woo',
-      fileURL: null,
-      theme: 'colorful',
-    },
-  });
-
+const Maker = ({ FileInput, authService, cardRepository }) => {
   const history = useHistory();
+  const historyState = history?.location?.state;
+  const [cards, setCards] = useState({});
+  const [userId, setUserId] = useState(historyState && historyState.id);
+
   const onLogout = () => {
     authService.logout();
   };
@@ -54,6 +22,7 @@ const Maker = ({ FileInput, authService }) => {
       delete updated[card.id];
       return updated;
     });
+    cardRepository.removeCard(userId, card);
   };
 
   const createOrUpdateCard = (card) => {
@@ -62,12 +31,15 @@ const Maker = ({ FileInput, authService }) => {
       updated[card.id] = card;
       return updated;
     });
+    cardRepository.saveCard(userId, card);
   };
 
   // Auth logout if user not found
   useEffect(() => {
     authService.onAuthChange((user) => {
-      if (!user) {
+      if (user) {
+        setUserId(user.uid);
+      } else {
         history.push('/');
       }
     });
