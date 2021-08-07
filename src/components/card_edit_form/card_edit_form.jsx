@@ -17,6 +17,8 @@ const CardEditForm = ({ FileInput, card, updateCard, removeCard }) => {
     removeCard(card);
   };
 
+  // if input value changes, updates card
+  // [event.currentTarget.name] => card[key]
   const onChange = (event) => {
     if (event.currentTarget == null) {
       return;
@@ -28,6 +30,8 @@ const CardEditForm = ({ FileInput, card, updateCard, removeCard }) => {
     });
   };
 
+  // when image file changes, onFileChange() will be called.
+  // it will receive file as a parameter, then update the card.
   const onFileChange = (file) => {
     updateCard({
       ...card,

@@ -13,12 +13,14 @@ const Login = ({ authService }) => {
     });
   };
 
+  // when logged in, link to the path '/maker' with user id state
   const onLogin = (event) => {
     authService
       .login(event.currentTarget.textContent)
       .then((data) => goToMaker(data.user.uid));
   };
 
+  // if logged in, it will redirect to '/maker' with user id information when component is mounted or updated.
   useEffect(() => {
     authService.onAuthChange((user) => {
       user && goToMaker(user.id);
@@ -43,7 +45,6 @@ const Login = ({ authService }) => {
           </li>
         </ul>
       </section>
-      <Footer />
     </section>
   );
 };

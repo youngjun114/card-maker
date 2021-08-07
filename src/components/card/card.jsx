@@ -2,9 +2,12 @@ import React, { memo } from 'react';
 import styles from './card.module.css';
 
 const DEFAULT_IMAGE = '/images/default_logo.png';
+
 const Card = memo(({ card }) => {
   const { name, company, title, email, message, theme, fileURL } = card;
+  // if there is no image URL, then use this default image
   const url = fileURL || DEFAULT_IMAGE;
+
   return (
     <li className={`${styles.card} ${getStyles(theme)}`}>
       <img src={url} alt='profile' className={styles.avatar} />

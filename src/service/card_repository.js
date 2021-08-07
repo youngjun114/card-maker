@@ -7,6 +7,8 @@ class CardRepository {
       const value = snapshot.val();
       value && onUpdate(value);
     });
+    // Firebase detach listner, allows to stop syncing
+    // when component is unmounted, it no longer needs API call
     return () => ref.off();
   }
 

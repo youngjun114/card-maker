@@ -12,6 +12,8 @@ const Maker = ({ FileInput, authService, cardRepository }) => {
   const [cards, setCards] = useState({});
   const [userId, setUserId] = useState(historyState && historyState.id);
 
+  // log out current user
+  // useCallback is used to not re-render Header Component
   const onLogout = useCallback(() => {
     authService.logout();
   }, [authService]);
@@ -25,6 +27,8 @@ const Maker = ({ FileInput, authService, cardRepository }) => {
     cardRepository.removeCard(userId, card);
   };
 
+  // add to note!!!
+  // instead of using map with an array, object
   const createOrUpdateCard = useCallback((card) => {
     setCards((cards) => {
       const updated = { ...cards };
@@ -44,7 +48,7 @@ const Maker = ({ FileInput, authService, cardRepository }) => {
     return () => stopSync();
   }, [userId, cardRepository]);
 
-  // Auth logout if user not found
+  // Auth logout if user not found, and redirect to login page
   useEffect(() => {
     authService.onAuthChange((user) => {
       if (user) {
@@ -68,7 +72,6 @@ const Maker = ({ FileInput, authService, cardRepository }) => {
         />
         <Preview cards={cards} />
       </div>
-      <Footer />
     </section>
   );
 };

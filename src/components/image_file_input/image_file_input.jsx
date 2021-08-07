@@ -9,8 +9,10 @@ const ImageFileInput = memo(({ imageUploader, name, onFileChange, label }) => {
     event.preventDefault();
     inputRef.current.click();
   };
+
   const onChange = async (event) => {
     setLoading(true);
+    // wait until imageUploader finishes job then set the value to uploaded
     const uploaded = await imageUploader.upload(event.target.files[0]);
     setLoading(false);
     onFileChange({
@@ -19,6 +21,8 @@ const ImageFileInput = memo(({ imageUploader, name, onFileChange, label }) => {
     });
   };
 
+  // image file uploader is actually an input, but I am using
+  // a button as UI for styling convenient.
   return (
     <div className={styles.container}>
       <input

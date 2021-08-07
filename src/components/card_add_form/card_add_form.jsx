@@ -19,6 +19,7 @@ const CardAddForm = memo(({ FileInput, addCard }) => {
     });
   };
 
+  // create a new card on submit form
   const onSubmit = (event) => {
     event.preventDefault();
     const card = {
@@ -33,6 +34,7 @@ const CardAddForm = memo(({ FileInput, addCard }) => {
       fileURL: file.fileURL || '',
     };
     formRef.current.reset();
+    // reset state after adding a new card
     setFile({ fileName: null, fileURL: null });
     addCard(card);
   };
